@@ -8,7 +8,7 @@ LDFLAGS = -lpthread
 # LDFLAGS = -fsanitize=address -fsanitize=leak -fsanitize=undefined
 
 OUTS = convolution
-OBJS_convolution = main.o
+OBJS_convolution = main.o ppm.o
 OBJS = $(OBJS_convolution)
 
 DEPS = $(OBJS:.o=.d) 
