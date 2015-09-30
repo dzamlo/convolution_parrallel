@@ -44,3 +44,8 @@ void convolve(img_t *src, img_t *dst, kernel_t kernel, int start_x, int start_y,
          x = 0;
      }
 }
+
+void *convolve_thread(void *params) {
+    convolve_params_t *p = (convolve_params_t *)params;
+    convolve(p->src, p->dst, p->kernel, p->start_x, p->start_y, p->count);
+}
