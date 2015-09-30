@@ -1,3 +1,5 @@
+#ifndef CONVOLUTION_H
+#define CONVOLUTION_H
 #include <stdint.h>
 #include "image.h"
 
@@ -8,4 +10,5 @@ typedef struct kernel_st {
 } kernel_t;
 
 void convolve(img_t src, img_t dst, kernel_t kernel, int start_x, int start_y, int count);  
+#endif
 

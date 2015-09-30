@@ -1,3 +1,5 @@
+#ifndef IMAGE_H
+#define IMAGE_H
 #include <stdint.h>
 
 // Store a pixel with 8-bit per component
@@ -16,4 +18,5 @@ img_t *alloc_img(int width, int height);
 void free_img(img_t *img);
 pixel_t get_pixel(img_t img, int x, int y);
 void set_pixel(img_t img, int x, int y, pixel_t value);
+#endif
 
