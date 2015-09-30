@@ -16,7 +16,10 @@ typedef struct img_st {
 
 img_t *alloc_img(int width, int height);
 void free_img(img_t *img);
-pixel_t get_pixel(img_t img, int x, int y);
-void set_pixel(img_t img, int x, int y, pixel_t value);
+pixel_t get_pixel(img_t *img, int x, int y);
+void set_pixel(img_t *img, int x, int y, pixel_t value);
+
+pixel_t pixel_from_float(float r, float g, float b);
+
 #endif
 

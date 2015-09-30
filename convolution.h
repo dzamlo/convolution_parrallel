@@ -9,6 +9,8 @@ typedef struct kernel_st {
     float *values;
 } kernel_t;
 
-void convolve(img_t src, img_t dst, kernel_t kernel, int start_x, int start_y, int count);  
+const kernel_t KERNEL_EDGE;
+
+void convolve(img_t *src, img_t *dst, kernel_t kernel, int start_x, int start_y, int count);  
 #endif
 
