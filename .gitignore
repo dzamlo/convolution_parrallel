@@ -35,4 +35,5 @@
 *.d
 *~
 convolution
+image.ppm
 
