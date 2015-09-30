@@ -8,7 +8,7 @@ LDFLAGS = -lpthread
 # LDFLAGS = -fsanitize=address -fsanitize=leak -fsanitize=undefined
 
 OUTS = convolution
-OBJS_convolution = main.o ppm.o
+OBJS_convolution = convolution.o image.o main.o ppm.o 
 OBJS = $(OBJS_convolution)
 
 DEPS = $(OBJS:.o=.d) 
@@ -20,7 +20,7 @@ all: $(OUTS)
 -include $(DEPS)
 
 convolution: $(OBJS_convolution)
-	$(CC) $(LDFLAGS) $< -o $@
+	$(CC) $(LDFLAGS) $^ -o $@
 
 %.d: %.c
 	$(CPP) $(CFLAGS) $< -MM -MT $(@:.d=.o) >$@
