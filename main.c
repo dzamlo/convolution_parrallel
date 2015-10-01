@@ -13,10 +13,26 @@
         return EXIT_FAILURE;                                                   \
     }
 
-int main(void) {
+void usage(char *argv0) {
+    printf("Usage:\n");
+    printf("%s <input> <kernel> <output> <threads>\n", argv0);
+}
+
+int main(int argc, char *argv[]) {
     char *input = "image.ppm";
     char *output = "output.ppm";
+    char *kernel;
     int threads = 3;
+
+    if (argc != 5) {
+        usage(argv[0]);
+        return EXIT_FAILURE;
+    } else {
+        input = argv[1];
+        kernel = argv[2];
+        output = argv[3];
+        threads = atoi(argv[4]);
+    }
 
     img_t *img_input = load_ppm(input);
     CHECK_NULL(img_input, "Error while opening the input");
