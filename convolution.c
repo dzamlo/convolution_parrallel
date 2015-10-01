@@ -32,9 +32,7 @@ bool load_kernel(char *filename, kernel_t *kernel) {
     return true;
 }
 
-void free_kernel(kernel_t kernel) {
-    free(kernel.values);
-}
+void free_kernel(kernel_t kernel) { free(kernel.values); }
 
 void convolve_pixel(img_t *src, img_t *dst, kernel_t kernel, int x, int y) {
     pixel_t dst_value;
