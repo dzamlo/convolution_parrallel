@@ -78,5 +78,6 @@ int main(int argc, char *argv[]) {
 
     free_img(img_input);
     free_img(img_output);
+    free_kernel(kernel);
     return EXIT_SUCCESS;
 }
