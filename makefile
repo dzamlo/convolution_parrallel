@@ -5,7 +5,7 @@ LDFLAGS = -lpthread -lm
  
 # CC = clang
 # CFLAGS = -Wall -Wextra -pedantic --std=c99 -g -O0 -fsanitize=address -fno-omit-frame-pointer -fsanitize=leak -fsanitize=undefined
-# LDFLAGS = -fsanitize=address -fsanitize=leak -fsanitize=undefined
+# LDFLAGS = -fsanitize=address -fsanitize=leak -fsanitize=undefined -lpthread -lm
 
 OUTS = convolution
 OBJS_convolution = convolution.o image.o main.o ppm.o 
