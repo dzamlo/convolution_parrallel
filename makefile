@@ -7,6 +7,9 @@ LDFLAGS = -lpthread -lm
 # CFLAGS = -Wall -Wextra -pedantic --std=gnu99 -g -O0 -fsanitize=address -fno-omit-frame-pointer -fsanitize=leak -fsanitize=undefined
 # LDFLAGS = -fsanitize=address -fsanitize=leak -fsanitize=undefined -lpthread -lm
 
+# CFLAGS = -Wall -Wextra -pedantic --std=gnu99 -g -O0 -fno-omit-frame-pointer -fsanitize=undefined -fsanitize=thread
+# LDFLAGS = -fsanitize=undefined -fsanitize=thread -lpthread -lm
+
 OUTS = convolution
 OBJS_convolution = convolution.o image.o main.o ppm.o 
 OBJS = $(OBJS_convolution)
