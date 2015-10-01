@@ -5,9 +5,16 @@
 // Allocate the memory for an image of size width*height
 img_t *alloc_img(int width, int height) {
     img_t *img = malloc(sizeof(img_t));
+    if (img == NULL) {
+        return NULL;
+    }
     img->width = width;
     img->height = height;
     img->data = malloc(sizeof(pixel_t) * width * height);
+    if (img->data == NULL) {
+        free(img);
+        return NULL;
+    }
     return img;
 }
 
