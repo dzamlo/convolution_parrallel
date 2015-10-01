@@ -19,36 +19,40 @@ void usage(char *argv0) {
 }
 
 int main(int argc, char *argv[]) {
-    char *input = "image.ppm";
-    char *output = "output.ppm";
-    char *kernel;
+    char *input_fn;
+    char *output_fn;
+    char *kernel_fn;
     int threads = 3;
 
     if (argc != 5) {
         usage(argv[0]);
         return EXIT_FAILURE;
     } else {
-        input = argv[1];
-        kernel = argv[2];
-        output = argv[3];
+        input_fn = argv[1];
+        kernel_fn = argv[2];
+        output_fn = argv[3];
         threads = atoi(argv[4]);
     }
 
-    img_t *img_input = load_ppm(input);
+    img_t *img_input = load_ppm(input_fn);
     CHECK_NULL(img_input, "Error while opening the input");
+
+    kernel_t kernel;
+    bool load_kernel_ok = load_kernel(kernel_fn, &kernel);
+    CHECK_RETURN(load_kernel_ok, false, "Error while opening the kernel");
 
     img_t *img_output = alloc_img(img_input->width, img_input->height);
     CHECK_NULL(img_output, "Error while allocating the output buffer");
 
     if (threads == 0) {
-        convolve(img_input, img_output, KERNEL_EDGE, 0, 0,
+        convolve(img_input, img_output, kernel, 0, 0,
                  img_input->width * img_input->height);
     } else {
-        convolve_params_t arg_t1 = {img_input, img_output, KERNEL_EDGE,
+        convolve_params_t arg_t1 = {img_input, img_output, kernel,
                                     0,         0,          242688};
-        convolve_params_t arg_t2 = {img_input, img_output, KERNEL_EDGE,
+        convolve_params_t arg_t2 = {img_input, img_output, kernel,
                                     0,         237,        242688};
-        convolve_params_t arg_t3 = {img_input, img_output, KERNEL_EDGE,
+        convolve_params_t arg_t3 = {img_input, img_output, kernel,
                                     0,         474,        242688};
         pthread_t t1, t2, t3;
         pthread_create(&t1, NULL, convolve_thread, &arg_t1);
@@ -60,7 +64,7 @@ int main(int argc, char *argv[]) {
         pthread_join(t3, NULL);
     }
 
-    bool write_ok = write_ppm(output, img_output);
+    bool write_ok = write_ppm(output_fn, img_output);
     CHECK_RETURN(write_ok, false, "Error while writing output");
 
     free_img(img_input);

@@ -1,13 +1,35 @@
-#include "convolution.h"
+#include <stdlib.h>
+#include <stdio.h>
 
-const float KERNEL_EDGE_VALUES[] = {-1, -1, -1, -1, 8, -1, -1, -1, -1};
-const kernel_t KERNEL_EDGE = {1, KERNEL_EDGE_VALUES};
+#include "convolution.h"
 
 float get_kernel_value(kernel_t kernel, int i, int j) {
     int x = i + kernel.half_n;
     int y = j + kernel.half_n;
     int width = kernel.half_n * 2 + 1;
     return kernel.values[y * width + x];
+}
+
+bool load_kernel(char *filename, kernel_t *kernel) {
+    FILE *f = fopen(filename, "r");
+    if (f == NULL) {
+        return false;
+    }
+    fscanf(f, "%d", &kernel->half_n);
+    int size = (kernel->half_n * 2 + 1);
+    size *= size;
+    kernel->values = malloc(sizeof(float) * size);
+    if (kernel->values == NULL) {
+        fclose(f);
+        return false;
+    }
+
+    for (int i = 0; i < size; i++) {
+        fscanf(f, "%f", &kernel->values[i]);
+    }
+
+    fclose(f);
+    return true;
 }
 
 void convolve_pixel(img_t *src, img_t *dst, kernel_t kernel, int x, int y) {

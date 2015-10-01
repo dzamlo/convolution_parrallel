@@ -1,5 +1,6 @@
 #ifndef CONVOLUTION_H
 #define CONVOLUTION_H
+#include <stdbool.h>
 #include <stdint.h>
 #include "image.h"
 
@@ -17,8 +18,7 @@ typedef struct convolve_params_st {
     int count;
 } convolve_params_t;
 
-const kernel_t KERNEL_EDGE;
-
+bool load_kernel(char *filename, kernel_t *kernel);
 void *convolve_thread(void *params);
 void convolve(img_t *src, img_t *dst, kernel_t kernel, int start_x, int start_y,
               int count);
