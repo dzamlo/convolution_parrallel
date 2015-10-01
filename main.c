@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <pthread.h>
+#include <time.h>
 
 #include "convolution.h"
 #include "image.h"
@@ -44,6 +45,9 @@ int main(int argc, char *argv[]) {
     img_t *img_output = alloc_img(img_input->width, img_input->height);
     CHECK_NULL(img_output, "Error while allocating the output buffer");
 
+    struct timespec start, finish;
+    clock_gettime(CLOCK_MONOTONIC, &start);
+
     if (threads == 0) {
         convolve(img_input, img_output, kernel, 0, 0,
                  img_input->width * img_input->height);
@@ -63,6 +67,11 @@ int main(int argc, char *argv[]) {
         pthread_join(t2, NULL);
         pthread_join(t3, NULL);
     }
+
+    clock_gettime(CLOCK_MONOTONIC, &finish);
+    double elapsed_ms = 1000 * (finish.tv_sec - start.tv_sec);
+    elapsed_ms += (finish.tv_nsec - start.tv_nsec) / 1000000.0;
+    printf("Convolution elapsed time: %f ms\n", elapsed_ms);
 
     bool write_ok = write_ppm(output_fn, img_output);
     CHECK_RETURN(write_ok, false, "Error while writing output");

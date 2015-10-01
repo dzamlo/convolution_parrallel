@@ -1,10 +1,10 @@
 CC = gcc
 CPP = cpp
-CFLAGS = -Wall -Wextra -pedantic --std=c99 -g
+CFLAGS = -Wall -Wextra -pedantic --std=gnu99 -g
 LDFLAGS = -lpthread -lm
  
 # CC = clang
-# CFLAGS = -Wall -Wextra -pedantic --std=c99 -g -O0 -fsanitize=address -fno-omit-frame-pointer -fsanitize=leak -fsanitize=undefined
+# CFLAGS = -Wall -Wextra -pedantic --std=gnu99 -g -O0 -fsanitize=address -fno-omit-frame-pointer -fsanitize=leak -fsanitize=undefined
 # LDFLAGS = -fsanitize=address -fsanitize=leak -fsanitize=undefined -lpthread -lm
 
 OUTS = convolution
