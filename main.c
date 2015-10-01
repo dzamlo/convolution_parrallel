@@ -71,7 +71,7 @@ int main(int argc, char *argv[]) {
     clock_gettime(CLOCK_MONOTONIC, &finish);
     double elapsed_ms = 1000 * (finish.tv_sec - start.tv_sec);
     elapsed_ms += (finish.tv_nsec - start.tv_nsec) / 1000000.0;
-    printf("Convolution elapsed time: %f ms\n", elapsed_ms);
+    fprintf(stderr, "Convolution elapsed time: %f ms\n", elapsed_ms);
 
     bool write_ok = write_ppm(output_fn, img_output);
     CHECK_RETURN(write_ok, false, "Error while writing output");

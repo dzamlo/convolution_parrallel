@@ -6,7 +6,7 @@
 // Write a 24-bit RGB PPM file.
 // Return false if the image wasn't written properly.
 bool write_ppm(char *filename, img_t *img) {
-    FILE *f = fopen(filename, "w");
+    FILE *f = strcmp(filename, "-") == 0 ? stdout : fopen(filename, "w");
     if (f == NULL)
         return false;
     // Write the header
@@ -27,7 +27,7 @@ bool write_ppm(char *filename, img_t *img) {
 // Load a 24-bit RGB PPM file and return the loaded image.
 // The function takes care of allocating the memory for the image.
 img_t *load_ppm(char *filename) {
-    FILE *f = fopen(filename, "r");
+    FILE *f = strcmp(filename, "-") == 0 ? stdin : fopen(filename, "r");
     if (f == NULL)
         return NULL;
 
