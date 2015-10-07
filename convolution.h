@@ -4,11 +4,19 @@
 #include <stdint.h>
 #include "image.h"
 
+//
+// Contains a kernel
+// Half_n is the half of the width rounded to the lower integer
+//
 typedef struct kernel_st {
     int half_n;
     float *values;
 } kernel_t;
 
+//
+// Hold the convolve function parameters
+// Used for pthread_create
+//
 typedef struct convolve_params_st {
     img_t *src;
     img_t *dst;

@@ -2,7 +2,10 @@
 #include <math.h>
 #include "image.h"
 
+//
 // Allocate the memory for an image of size width*height
+// This is a function from ppm.c (file provided by the professor)
+//
 img_t *alloc_img(int width, int height) {
     img_t *img = malloc(sizeof(img_t));
     if (img == NULL) {
@@ -18,12 +21,19 @@ img_t *alloc_img(int width, int height) {
     return img;
 }
 
+//
 // Free an image
+// This is a function from ppm.c (file provided by the professor)
+//
 void free_img(img_t *img) {
     free(img->data);
     free(img);
 }
 
+//
+// Get a pixel from the image
+// Handle pixels outside the image by returning a black pixel
+//
 pixel_t get_pixel(img_t *img, int x, int y) {
     int width = img->width;
     int height = img->height;
@@ -38,10 +48,16 @@ pixel_t get_pixel(img_t *img, int x, int y) {
     return value;
 }
 
+//
+// Set a pixel in the image
+//
 void set_pixel(img_t *img, int x, int y, pixel_t value) {
     img->data[y * img->width + x] = value;
 }
 
+//
+// Convert a float to an uint8_t (clamp values between 0 and 255)
+//
 uint8_t float_to_u8(float v) {
     if (v < 0.0) {
         return 0;
@@ -52,6 +68,9 @@ uint8_t float_to_u8(float v) {
     }
 }
 
+//
+// Create a pixel from float values (RGB)
+//
 pixel_t pixel_from_float(float r, float g, float b) {
     pixel_t value;
     value.r = float_to_u8(r);

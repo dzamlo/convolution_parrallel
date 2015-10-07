@@ -14,6 +14,9 @@
         return EXIT_FAILURE;                                                   \
     }
 
+//
+// Print usage informations 
+//
 void usage(char *argv0) {
     printf("Usage:\n");
     printf("%s <input> <kernel> <output> <threads>\n", argv0);
@@ -24,7 +27,7 @@ int main(int argc, char *argv[]) {
     char *output_fn;
     char *kernel_fn;
     int nb_threads = 3;
-
+    
     if (argc != 5) {
         usage(argv[0]);
         return EXIT_FAILURE;
@@ -54,12 +57,10 @@ int main(int argc, char *argv[]) {
     } else {
         pthread_t threads[nb_threads];
         convolve_params_t convolve_params[nb_threads];
-
-        // launch threads
-
         int nb_pixel = img_input->width * img_input->height;
         int pixel_done = 0;
 
+	// launch threads
         for (int i = 0; i < nb_threads; i++) {
             int pixel_to_do = (nb_pixel - pixel_done) / (nb_threads - i);
             int y = pixel_done / img_input->width;
@@ -71,6 +72,7 @@ int main(int argc, char *argv[]) {
             pthread_create(&threads[i], NULL, convolve_thread,
                            &convolve_params[i]);
         }
+
         // join threads
         for (int i = 0; i < nb_threads; i++) {
             pthread_join(threads[i], NULL);

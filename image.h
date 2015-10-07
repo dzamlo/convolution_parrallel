@@ -2,12 +2,18 @@
 #define IMAGE_H
 #include <stdint.h>
 
+//
 // Store a pixel with 8-bit per component
+// This is a function from ppm.c (file provided by the professor)
+//
 typedef struct pixel_st {
     uint8_t r, g, b; // Red, green, blue components of the pixel
 } pixel_t;
 
+//
 // Store a 24-bit per pixel image: dimension and pixel data
+// This is a function from ppm.c (file provided by the professor)
+//
 typedef struct img_st {
     int width;
     int height;

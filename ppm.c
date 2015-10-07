@@ -1,3 +1,4 @@
+// This is ppm.c, a little bit modified (file provided by the professor)
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -5,6 +6,7 @@
 
 // Write a 24-bit RGB PPM file.
 // Return false if the image wasn't written properly.
+// If filename is "-", use stdout
 bool write_ppm(char *filename, img_t *img) {
     bool use_stdout = strcmp(filename, "-") == 0;
     FILE *f = use_stdout ? stdout : fopen(filename, "w");
@@ -29,6 +31,7 @@ bool write_ppm(char *filename, img_t *img) {
 
 // Load a 24-bit RGB PPM file and return the loaded image.
 // The function takes care of allocating the memory for the image.
+// If filename is "-", use stdin
 img_t *load_ppm(char *filename) {
     bool use_stdin = strcmp(filename, "-") == 0;
     FILE *f = use_stdin ? stdin : fopen(filename, "r");
