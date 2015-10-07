@@ -1,6 +1,6 @@
 CC = gcc
 CPP = cpp
-CFLAGS = -Wall -Wextra -pedantic --std=gnu99 -g
+CFLAGS = -Wall -Wextra -pedantic --std=gnu99 -g -O3
 LDFLAGS = -lpthread -lm -lrt
  
 # CC = clang
