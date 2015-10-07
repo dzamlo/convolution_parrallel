@@ -1,3 +1,9 @@
+/**
+ * @file convolution.c
+ * @brief Implement the 2D convolution
+ * @author Loïc Damien and Simon Menetrey
+ * @date October 7, 2015
+ */
 #include <stdlib.h>
 #include <stdio.h>
 

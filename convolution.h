@@ -1,5 +1,11 @@
 #ifndef CONVOLUTION_H
 #define CONVOLUTION_H
+/**
+ * @file convolution.h
+ * @brief Implement the 2D convolution
+ * @author Loïc Damien and Simon Menetrey
+ * @date October 7, 2015
+ */
 #include <stdbool.h>
 #include <stdint.h>
 #include "image.h"

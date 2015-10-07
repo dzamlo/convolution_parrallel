@@ -1,3 +1,9 @@
+/**
+ * @file ppm.c
+ * @brief Load/Write PPM file
+ * @author Florent Gluck, Loïc Damien and Simon Menetrey
+ * @date October 7, 2015
+ */
 // This is ppm.c, a little bit modified (file provided by the professor)
 #include <stdio.h>
 #include <stdlib.h>

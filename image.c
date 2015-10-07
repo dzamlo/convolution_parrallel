@@ -1,3 +1,9 @@
+/**
+ * @file image.c
+ * @brief Implement image management
+ * @author Loïc Damien and Simon Menetrey
+ * @date October 7, 2015
+ */
 #include <stdlib.h>
 #include <math.h>
 #include "image.h"

@@ -1,3 +1,9 @@
+/**
+ * @file image.h
+ * @brief Implement image management
+ * @author Loïc Damien and Simon Menetrey
+ * @date October 7, 2015
+ */
 #ifndef IMAGE_H
 #define IMAGE_H
 #include <stdint.h>
