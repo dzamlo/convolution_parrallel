@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
     char *input_fn;
     char *output_fn;
     char *kernel_fn;
-    int threads = 3;
+    int nb_threads = 3;
 
     if (argc != 5) {
         usage(argv[0]);
@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
         input_fn = argv[1];
         kernel_fn = argv[2];
         output_fn = argv[3];
-        threads = atoi(argv[4]);
+        nb_threads = atoi(argv[4]);
     }
 
     img_t *img_input = load_ppm(input_fn);
@@ -48,24 +48,33 @@ int main(int argc, char *argv[]) {
     struct timespec start, finish;
     clock_gettime(CLOCK_MONOTONIC, &start);
 
-    if (threads == 0) {
+    if (nb_threads == 0) {
         convolve(img_input, img_output, kernel, 0, 0,
                  img_input->width * img_input->height);
     } else {
-        convolve_params_t arg_t1 = {img_input, img_output, kernel,
-                                    0,         0,          242688};
-        convolve_params_t arg_t2 = {img_input, img_output, kernel,
-                                    0,         237,        242688};
-        convolve_params_t arg_t3 = {img_input, img_output, kernel,
-                                    0,         474,        242688};
-        pthread_t t1, t2, t3;
-        pthread_create(&t1, NULL, convolve_thread, &arg_t1);
-        pthread_create(&t2, NULL, convolve_thread, &arg_t2);
-        pthread_create(&t3, NULL, convolve_thread, &arg_t3);
+        pthread_t threads[nb_threads];
+        convolve_params_t convolve_params[nb_threads];
 
-        pthread_join(t1, NULL);
-        pthread_join(t2, NULL);
-        pthread_join(t3, NULL);
+        // launch threads
+
+        int nb_pixel = img_input->width * img_input->height;
+        int pixel_done = 0;
+
+        for (int i = 0; i < nb_threads; i++) {
+            int pixel_to_do = (nb_pixel - pixel_done) / (nb_threads - i);
+            int y = pixel_done / img_input->width;
+            int x = pixel_done - (y * img_input->width);
+            convolve_params_t arg = {img_input, img_output, kernel,
+                                     x,         y,          pixel_to_do};
+            pixel_done += pixel_to_do;
+            convolve_params[i] = arg;
+            pthread_create(&threads[i], NULL, convolve_thread,
+                           &convolve_params[i]);
+        }
+        // join threads
+        for (int i = 0; i < nb_threads; i++) {
+            pthread_join(threads[i], NULL);
+        }
     }
 
     clock_gettime(CLOCK_MONOTONIC, &finish);
