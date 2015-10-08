@@ -21,7 +21,7 @@
     }
 
 //
-// Print usage informations 
+// Print usage informations
 //
 void usage(char *argv0) {
     printf("Usage:\n");
@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
     char *output_fn;
     char *kernel_fn;
     int nb_threads;
-    
+
     if (argc != 5) {
         usage(argv[0]);
         return EXIT_FAILURE;
@@ -43,36 +43,36 @@ int main(int argc, char *argv[]) {
         output_fn = argv[3];
         nb_threads = atoi(argv[4]);
     }
-    
-    //Load image
+
+    // Load image
     img_t *img_input = load_ppm(input_fn);
     CHECK_NULL(img_input, "Error while opening the input");
-    
-    //Load kernel
+
+    // Load kernel
     kernel_t kernel;
     bool load_kernel_ok = load_kernel(kernel_fn, &kernel);
     CHECK_RETURN(load_kernel_ok, false, "Error while opening the kernel");
-    
-    //Prepare output image
+
+    // Prepare output image
     img_t *img_output = alloc_img(img_input->width, img_input->height);
     CHECK_NULL(img_output, "Error while allocating the output buffer");
 
     struct timespec start, finish;
-    //Start clock
+    // Start clock
     clock_gettime(CLOCK_MONOTONIC, &start);
-    
-    //Sequential
+
+    // Sequential
     if (nb_threads == 0) {
         convolve(img_input, img_output, kernel, 0, 0,
                  img_input->width * img_input->height);
     } else {
-    //Thread(s)
+        // Thread(s)
         pthread_t threads[nb_threads];
         convolve_params_t convolve_params[nb_threads];
         int nb_pixel = img_input->width * img_input->height;
         int pixel_done = 0;
 
-	// launch threads
+        // launch threads
         for (int i = 0; i < nb_threads; i++) {
             int pixel_to_do = (nb_pixel - pixel_done) / (nb_threads - i);
             int y = pixel_done / img_input->width;
@@ -98,8 +98,8 @@ int main(int argc, char *argv[]) {
 
     bool write_ok = write_ppm(output_fn, img_output);
     CHECK_RETURN(write_ok, false, "Error while writing output");
-    
-    //Free memory
+
+    // Free memory
     free_img(img_input);
     free_img(img_output);
     free_kernel(kernel);

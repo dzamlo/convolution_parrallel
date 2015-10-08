@@ -24,7 +24,7 @@ float get_kernel_value(kernel_t kernel, int i, int j) {
 //
 // Loads kernel from file
 // It doesn't check the validity of the file content
-// Returns false if it can't load the kernel 
+// Returns false if it can't load the kernel
 //
 bool load_kernel(char *filename, kernel_t *kernel) {
     FILE *f = fopen(filename, "r");
@@ -96,7 +96,8 @@ void convolve(img_t *src, img_t *dst, kernel_t kernel, int start_x, int start_y,
 }
 
 //
-// A wrapper around the convolve function which allows it to be called with pthread_create
+// A wrapper around the convolve function which allows it to be called with
+// pthread_create
 //
 void *convolve_thread(void *params) {
     convolve_params_t *p = (convolve_params_t *)params;
