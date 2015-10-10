@@ -65,8 +65,8 @@ int main(int argc, char *argv[]) {
     // Start clock
     clock_gettime(CLOCK_MONOTONIC, &start);
 
-    // Sequential
     if (nb_threads == 0) {
+        // Sequential
         convolve(img_input, img_output, kernel, 0, 0,
                  img_input->width * img_input->height);
     } else {

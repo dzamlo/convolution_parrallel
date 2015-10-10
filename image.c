@@ -71,10 +71,8 @@ void set_pixel(img_t *img, int x, int y, pixel_t value) {
 // Convert a float to an uint8_t (clamp values between 0 and 255)
 //
 uint8_t float_to_u8(float v) {
-    // Lower than 0 ?
     if (v < 0.0) {
         return 0;
-        // Higher than 255 ?
     } else if (v > 255.0) {
         return 255;
     } else {
