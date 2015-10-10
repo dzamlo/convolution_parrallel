@@ -28,12 +28,16 @@ void usage(char *argv0) {
     printf("%s <input> <kernel> <output> <threads>\n", argv0);
 }
 
+//
+// Main
+//
 int main(int argc, char *argv[]) {
     char *input_fn;
     char *output_fn;
     char *kernel_fn;
     int nb_threads;
-
+    
+	//Application needs 5 parameters (4 + application name)
     if (argc != 5) {
         usage(argv[0]);
         return EXIT_FAILURE;
@@ -90,7 +94,8 @@ int main(int argc, char *argv[]) {
             pthread_join(threads[i], NULL);
         }
     }
-
+	 
+	//Show time elapsed 
     clock_gettime(CLOCK_MONOTONIC, &finish);
     double elapsed_ms = 1000 * (finish.tv_sec - start.tv_sec);
     elapsed_ms += (finish.tv_nsec - start.tv_nsec) / 1000000.0;
