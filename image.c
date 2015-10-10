@@ -19,7 +19,7 @@ img_t *alloc_img(int width, int height) {
     }
     img->width = width;
     img->height = height;
-    //Allocate memory
+    // Allocate memory
     img->data = malloc(sizeof(pixel_t) * width * height);
     if (img->data == NULL) {
         free(img);
@@ -47,7 +47,7 @@ pixel_t get_pixel(img_t *img, int x, int y) {
     int width = img->width;
     int height = img->height;
     pixel_t value;
-    //Is the pixel outside image ?
+    // Is the pixel outside image ?
     if (x < 0 || x >= width || y < 0 || y >= height) {
         value.r = 0;
         value.g = 0;
@@ -60,7 +60,8 @@ pixel_t get_pixel(img_t *img, int x, int y) {
 
 //
 // Set a pixel values in the image
-// img is the destination image. x and y are the coords. value is a pixel_t structure which countains pixel values.
+// img is the destination image. x and y are the coords. value is a pixel_t
+// structure which countains pixel values.
 //
 void set_pixel(img_t *img, int x, int y, pixel_t value) {
     img->data[y * img->width + x] = value;
@@ -70,10 +71,10 @@ void set_pixel(img_t *img, int x, int y, pixel_t value) {
 // Convert a float to an uint8_t (clamp values between 0 and 255)
 //
 uint8_t float_to_u8(float v) {
-    //Lower than 0 ?
+    // Lower than 0 ?
     if (v < 0.0) {
         return 0;
-    //Higher than 255 ?
+        // Higher than 255 ?
     } else if (v > 255.0) {
         return 255;
     } else {
